@@ -16,7 +16,8 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    NSLog(@"Starting Application");
+    [self managedObjectContext];
 }
 
 // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "EricBunton.POEOfflineSkillTree" in the user's Application Support directory.
@@ -137,7 +138,7 @@
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     // Save changes in the application's managed object context before the application terminates.
-    
+    NSLog(@"Exiting...");
     if (!_managedObjectContext) {
         return NSTerminateNow;
     }
