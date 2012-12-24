@@ -19,8 +19,9 @@
         <attribute name="orbit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="orbitIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sa" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="link" optional="YES" toMany="YES" minCount="1" maxCount="12" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="link" inverseEntity="SkillNode" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SkillNode" positionX="160" positionY="192" width="128" height="315"/>
+        <element name="SkillNode" positionX="160" positionY="192" width="128" height="328"/>
     </elements>
 </model>
