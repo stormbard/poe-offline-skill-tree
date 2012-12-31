@@ -7,6 +7,7 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "NSString+EBNSString.h"
 
 @interface POEOfflineSkillTreeTests : SenTestCase
 

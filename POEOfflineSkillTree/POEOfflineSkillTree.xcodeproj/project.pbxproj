@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C56310C8168B5B7200B8F444 /* NSString+Contains.m in Sources */ = {isa = PBXBuildFile; fileRef = C56310C7168B5B7200B8F444 /* NSString+Contains.m */; };
+		C58A1F1B1691268A0047FD37 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F1A1691268A0047FD37 /* Attribute.m */; };
+		C58A1F1E169126970047FD37 /* Build.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F1D169126970047FD37 /* Build.m */; };
+		C58A1F21169126A30047FD37 /* NodeGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F20169126A30047FD37 /* NodeGroup.m */; };
+		C58A1F24169126B10047FD37 /* SkillNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F23169126B10047FD37 /* SkillNode.m */; };
+		C598597C168B48700096D5EF /* POEOfflineSkillTreeImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C598597B168B48700096D5EF /* POEOfflineSkillTreeImporter.m */; };
+		C5F0D7E8168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5F0D7E6168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld */; };
 		C5FAE5A8168555CD00295024 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5FAE5A7168555CD00295024 /* Cocoa.framework */; };
 		C5FAE5B2168555CD00295024 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5FAE5B0168555CD00295024 /* InfoPlist.strings */; };
 		C5FAE5B4168555CD00295024 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FAE5B3168555CD00295024 /* main.m */; };
 		C5FAE5B8168555CD00295024 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C5FAE5B6168555CD00295024 /* Credits.rtf */; };
 		C5FAE5BB168555CD00295024 /* POEOfflineSkillTreeAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FAE5BA168555CD00295024 /* POEOfflineSkillTreeAppDelegate.m */; };
 		C5FAE5BE168555CD00295024 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C5FAE5BC168555CD00295024 /* MainMenu.xib */; };
-		C5FAE5C1168555CD00295024 /* POEOfflineSkillTree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5FAE5BF168555CD00295024 /* POEOfflineSkillTree.xcdatamodeld */; };
 		C5FAE5C9168555CE00295024 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5FAE5C8168555CE00295024 /* SenTestingKit.framework */; };
 		C5FAE5CA168555CE00295024 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5FAE5A7168555CD00295024 /* Cocoa.framework */; };
 		C5FAE5D2168555CE00295024 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5FAE5D0168555CE00295024 /* InfoPlist.strings */; };
@@ -59,6 +65,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C56310C6168B5B7200B8F444 /* NSString+Contains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Contains.h"; sourceTree = "<group>"; };
+		C56310C7168B5B7200B8F444 /* NSString+Contains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Contains.m"; sourceTree = "<group>"; };
+		C58A1F191691268A0047FD37 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		C58A1F1A1691268A0047FD37 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
+		C58A1F1C169126970047FD37 /* Build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Build.h; sourceTree = "<group>"; };
+		C58A1F1D169126970047FD37 /* Build.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Build.m; sourceTree = "<group>"; };
+		C58A1F1F169126A30047FD37 /* NodeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeGroup.h; sourceTree = "<group>"; };
+		C58A1F20169126A30047FD37 /* NodeGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeGroup.m; sourceTree = "<group>"; };
+		C58A1F22169126B10047FD37 /* SkillNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillNode.h; sourceTree = "<group>"; };
+		C58A1F23169126B10047FD37 /* SkillNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillNode.m; sourceTree = "<group>"; };
+		C598597A168B48700096D5EF /* POEOfflineSkillTreeImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POEOfflineSkillTreeImporter.h; sourceTree = "<group>"; };
+		C598597B168B48700096D5EF /* POEOfflineSkillTreeImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POEOfflineSkillTreeImporter.m; sourceTree = "<group>"; };
+		C5F0D7E3168B86CE006F77B4 /* POEOfflineSkillTree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = POEOfflineSkillTree.entitlements; sourceTree = "<group>"; };
+		C5F0D7E7168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = POEOfflineSkillTree.xcdatamodel; sourceTree = "<group>"; };
 		C5FAE5A3168555CD00295024 /* POEOfflineSkillTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POEOfflineSkillTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5FAE5A7168555CD00295024 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C5FAE5AA168555CD00295024 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -72,7 +92,6 @@
 		C5FAE5B9168555CD00295024 /* POEOfflineSkillTreeAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = POEOfflineSkillTreeAppDelegate.h; sourceTree = "<group>"; };
 		C5FAE5BA168555CD00295024 /* POEOfflineSkillTreeAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = POEOfflineSkillTreeAppDelegate.m; sourceTree = "<group>"; };
 		C5FAE5BD168555CD00295024 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		C5FAE5C0168555CD00295024 /* POEOfflineSkillTree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = POEOfflineSkillTree.xcdatamodel; sourceTree = "<group>"; };
 		C5FAE5C7168555CE00295024 /* POEOfflineSkillTreeTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POEOfflineSkillTreeTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5FAE5C8168555CE00295024 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C5FAE5CF168555CE00295024 /* POEOfflineSkillTreeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "POEOfflineSkillTreeTests-Info.plist"; sourceTree = "<group>"; };
@@ -133,6 +152,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C58A1F121690EB9C0047FD37 /* ManagedObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C58A1F22169126B10047FD37 /* SkillNode.h */,
+				C58A1F23169126B10047FD37 /* SkillNode.m */,
+				C58A1F1F169126A30047FD37 /* NodeGroup.h */,
+				C58A1F20169126A30047FD37 /* NodeGroup.m */,
+				C58A1F1C169126970047FD37 /* Build.h */,
+				C58A1F1D169126970047FD37 /* Build.m */,
+				C58A1F191691268A0047FD37 /* Attribute.h */,
+				C58A1F1A1691268A0047FD37 /* Attribute.m */,
+			);
+			name = ManagedObjects;
+			sourceTree = "<group>";
+		};
 		C5FAE598168555CD00295024 = {
 			isa = PBXGroup;
 			children = (
@@ -175,11 +209,12 @@
 		C5FAE5AD168555CD00295024 /* POEOfflineSkillTree */ = {
 			isa = PBXGroup;
 			children = (
+				C58A1F121690EB9C0047FD37 /* ManagedObjects */,
 				C5FAE5E516855EFA00295024 /* Helpers */,
 				C5FAE5B9168555CD00295024 /* POEOfflineSkillTreeAppDelegate.h */,
 				C5FAE5BA168555CD00295024 /* POEOfflineSkillTreeAppDelegate.m */,
 				C5FAE5BC168555CD00295024 /* MainMenu.xib */,
-				C5FAE5BF168555CD00295024 /* POEOfflineSkillTree.xcdatamodeld */,
+				C5F0D7E6168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld */,
 				C5FAE5AE168555CD00295024 /* Supporting Files */,
 			);
 			path = POEOfflineSkillTree;
@@ -188,6 +223,7 @@
 		C5FAE5AE168555CD00295024 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C5F0D7E3168B86CE006F77B4 /* POEOfflineSkillTree.entitlements */,
 				C5FAE5AF168555CD00295024 /* POEOfflineSkillTree-Info.plist */,
 				C5FAE5B0168555CD00295024 /* InfoPlist.strings */,
 				C5FAE5B3168555CD00295024 /* main.m */,
@@ -223,6 +259,10 @@
 				C5FAE5EC16855F7A00295024 /* Base64 */,
 				C5FAE61F1685601000295024 /* Constants.h */,
 				C5FAE6201685601000295024 /* Constants.m */,
+				C56310C6168B5B7200B8F444 /* NSString+Contains.h */,
+				C56310C7168B5B7200B8F444 /* NSString+Contains.m */,
+				C598597A168B48700096D5EF /* POEOfflineSkillTreeImporter.h */,
+				C598597B168B48700096D5EF /* POEOfflineSkillTreeImporter.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -381,7 +421,6 @@
 			files = (
 				C5FAE5B4168555CD00295024 /* main.m in Sources */,
 				C5FAE5BB168555CD00295024 /* POEOfflineSkillTreeAppDelegate.m in Sources */,
-				C5FAE5C1168555CD00295024 /* POEOfflineSkillTree.xcdatamodeld in Sources */,
 				C5FAE5EA16855F6F00295024 /* NSData+Base64.m in Sources */,
 				C5FAE5EB16855F6F00295024 /* NSString+Base64.m in Sources */,
 				C5FAE60616855FCD00295024 /* NSObject+SBJson.m in Sources */,
@@ -397,6 +436,13 @@
 				C5FAE61A16855FCD00295024 /* SBJsonUTF8Stream.m in Sources */,
 				C5FAE61C16855FCD00295024 /* SBJsonWriter.m in Sources */,
 				C5FAE6211685601000295024 /* Constants.m in Sources */,
+				C598597C168B48700096D5EF /* POEOfflineSkillTreeImporter.m in Sources */,
+				C56310C8168B5B7200B8F444 /* NSString+Contains.m in Sources */,
+				C5F0D7E8168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld in Sources */,
+				C58A1F1B1691268A0047FD37 /* Attribute.m in Sources */,
+				C58A1F1E169126970047FD37 /* Build.m in Sources */,
+				C58A1F21169126A30047FD37 /* NodeGroup.m in Sources */,
+				C58A1F24169126B10047FD37 /* SkillNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +569,7 @@
 		C5FAE5D9168555CE00295024 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = POEOfflineSkillTree/POEOfflineSkillTree.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "POEOfflineSkillTree/POEOfflineSkillTree-Prefix.pch";
@@ -535,6 +582,7 @@
 		C5FAE5DA168555CE00295024 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = POEOfflineSkillTree/POEOfflineSkillTree.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "POEOfflineSkillTree/POEOfflineSkillTree-Prefix.pch";
@@ -593,6 +641,7 @@
 				C5FAE5DA168555CE00295024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C5FAE5DB168555CE00295024 /* Build configuration list for PBXNativeTarget "POEOfflineSkillTreeTests" */ = {
 			isa = XCConfigurationList;
@@ -601,16 +650,17 @@
 				C5FAE5DD168555CE00295024 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C5FAE5BF168555CD00295024 /* POEOfflineSkillTree.xcdatamodeld */ = {
+		C5F0D7E6168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C5FAE5C0168555CD00295024 /* POEOfflineSkillTree.xcdatamodel */,
+				C5F0D7E7168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodel */,
 			);
-			currentVersion = C5FAE5C0168555CD00295024 /* POEOfflineSkillTree.xcdatamodel */;
+			currentVersion = C5F0D7E7168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodel */;
 			path = POEOfflineSkillTree.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
