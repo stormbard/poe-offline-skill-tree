@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		C56310C8168B5B7200B8F444 /* NSString+Contains.m in Sources */ = {isa = PBXBuildFile; fileRef = C56310C7168B5B7200B8F444 /* NSString+Contains.m */; };
-		C58A1F1B1691268A0047FD37 /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F1A1691268A0047FD37 /* Attribute.m */; };
-		C58A1F1E169126970047FD37 /* Build.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F1D169126970047FD37 /* Build.m */; };
 		C58A1F21169126A30047FD37 /* NodeGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F20169126A30047FD37 /* NodeGroup.m */; };
-		C58A1F24169126B10047FD37 /* SkillNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C58A1F23169126B10047FD37 /* SkillNode.m */; };
 		C598597C168B48700096D5EF /* POEOfflineSkillTreeImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C598597B168B48700096D5EF /* POEOfflineSkillTreeImporter.m */; };
+		C5ED302A16925AF00083204E /* SkillNode.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ED302916925AF00083204E /* SkillNode.m */; };
+		C5ED30311692664E0083204E /* Build.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ED30301692664E0083204E /* Build.m */; };
+		C5ED30341692665E0083204E /* Attribute.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ED30331692665E0083204E /* Attribute.m */; };
+		C5ED303716928BA80083204E /* SkillIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ED303616928BA80083204E /* SkillIcon.m */; };
 		C5F0D7E8168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C5F0D7E6168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld */; };
 		C5FAE5A8168555CD00295024 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5FAE5A7168555CD00295024 /* Cocoa.framework */; };
 		C5FAE5B2168555CD00295024 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C5FAE5B0168555CD00295024 /* InfoPlist.strings */; };
@@ -67,16 +68,18 @@
 /* Begin PBXFileReference section */
 		C56310C6168B5B7200B8F444 /* NSString+Contains.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Contains.h"; sourceTree = "<group>"; };
 		C56310C7168B5B7200B8F444 /* NSString+Contains.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Contains.m"; sourceTree = "<group>"; };
-		C58A1F191691268A0047FD37 /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
-		C58A1F1A1691268A0047FD37 /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
-		C58A1F1C169126970047FD37 /* Build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Build.h; sourceTree = "<group>"; };
-		C58A1F1D169126970047FD37 /* Build.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Build.m; sourceTree = "<group>"; };
 		C58A1F1F169126A30047FD37 /* NodeGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeGroup.h; sourceTree = "<group>"; };
 		C58A1F20169126A30047FD37 /* NodeGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeGroup.m; sourceTree = "<group>"; };
-		C58A1F22169126B10047FD37 /* SkillNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillNode.h; sourceTree = "<group>"; };
-		C58A1F23169126B10047FD37 /* SkillNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillNode.m; sourceTree = "<group>"; };
 		C598597A168B48700096D5EF /* POEOfflineSkillTreeImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POEOfflineSkillTreeImporter.h; sourceTree = "<group>"; };
 		C598597B168B48700096D5EF /* POEOfflineSkillTreeImporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POEOfflineSkillTreeImporter.m; sourceTree = "<group>"; };
+		C5ED302816925AF00083204E /* SkillNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillNode.h; sourceTree = "<group>"; };
+		C5ED302916925AF00083204E /* SkillNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillNode.m; sourceTree = "<group>"; };
+		C5ED302F1692664E0083204E /* Build.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Build.h; sourceTree = "<group>"; };
+		C5ED30301692664E0083204E /* Build.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Build.m; sourceTree = "<group>"; };
+		C5ED30321692665E0083204E /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
+		C5ED30331692665E0083204E /* Attribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attribute.m; sourceTree = "<group>"; };
+		C5ED303516928BA80083204E /* SkillIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkillIcon.h; sourceTree = "<group>"; };
+		C5ED303616928BA80083204E /* SkillIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkillIcon.m; sourceTree = "<group>"; };
 		C5F0D7E3168B86CE006F77B4 /* POEOfflineSkillTree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = POEOfflineSkillTree.entitlements; sourceTree = "<group>"; };
 		C5F0D7E7168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = POEOfflineSkillTree.xcdatamodel; sourceTree = "<group>"; };
 		C5FAE5A3168555CD00295024 /* POEOfflineSkillTree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POEOfflineSkillTree.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,14 +158,16 @@
 		C58A1F121690EB9C0047FD37 /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
-				C58A1F22169126B10047FD37 /* SkillNode.h */,
-				C58A1F23169126B10047FD37 /* SkillNode.m */,
+				C5ED303516928BA80083204E /* SkillIcon.h */,
+				C5ED303616928BA80083204E /* SkillIcon.m */,
+				C5ED30321692665E0083204E /* Attribute.h */,
+				C5ED30331692665E0083204E /* Attribute.m */,
+				C5ED302F1692664E0083204E /* Build.h */,
+				C5ED30301692664E0083204E /* Build.m */,
+				C5ED302816925AF00083204E /* SkillNode.h */,
+				C5ED302916925AF00083204E /* SkillNode.m */,
 				C58A1F1F169126A30047FD37 /* NodeGroup.h */,
 				C58A1F20169126A30047FD37 /* NodeGroup.m */,
-				C58A1F1C169126970047FD37 /* Build.h */,
-				C58A1F1D169126970047FD37 /* Build.m */,
-				C58A1F191691268A0047FD37 /* Attribute.h */,
-				C58A1F1A1691268A0047FD37 /* Attribute.m */,
 			);
 			name = ManagedObjects;
 			sourceTree = "<group>";
@@ -439,10 +444,11 @@
 				C598597C168B48700096D5EF /* POEOfflineSkillTreeImporter.m in Sources */,
 				C56310C8168B5B7200B8F444 /* NSString+Contains.m in Sources */,
 				C5F0D7E8168BA1AA006F77B4 /* POEOfflineSkillTree.xcdatamodeld in Sources */,
-				C58A1F1B1691268A0047FD37 /* Attribute.m in Sources */,
-				C58A1F1E169126970047FD37 /* Build.m in Sources */,
 				C58A1F21169126A30047FD37 /* NodeGroup.m in Sources */,
-				C58A1F24169126B10047FD37 /* SkillNode.m in Sources */,
+				C5ED302A16925AF00083204E /* SkillNode.m in Sources */,
+				C5ED30311692664E0083204E /* Build.m in Sources */,
+				C5ED30341692665E0083204E /* Attribute.m in Sources */,
+				C5ED303716928BA80083204E /* SkillIcon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

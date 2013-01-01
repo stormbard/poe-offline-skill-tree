@@ -2,20 +2,19 @@
 //  Build.m
 //  POEOfflineSkillTree
 //
-//  Created by Eric Bunton on 12/30/12.
+//  Created by Eric Bunton on 12/31/12.
 //  Copyright (c) 2012 Eric Bunton. All rights reserved.
 //
 
 #import "Build.h"
-#import "Attribute.h"
+#import "SkillNode.h"
 
 
 @implementation Build
 
-@dynamic name;
 @dynamic buildUrl;
 @dynamic level;
+@dynamic name;
 @dynamic activeNodes;
-@dynamic attributes;
 
 @end

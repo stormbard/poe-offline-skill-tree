@@ -2,7 +2,7 @@
 //  SkillNode.m
 //  POEOfflineSkillTree
 //
-//  Created by Eric Bunton on 12/30/12.
+//  Created by Eric Bunton on 12/31/12.
 //  Copyright (c) 2012 Eric Bunton. All rights reserved.
 //
 
@@ -22,6 +22,8 @@
 @dynamic hitBox;
 @dynamic ia;
 @dynamic icon;
+@dynamic iconFilename;
+@dynamic iconLocation;
 @dynamic isActivated;
 @dynamic isMastery;
 @dynamic ks;
@@ -32,11 +34,28 @@
 @dynamic orbit;
 @dynamic orbitIndex;
 @dynamic sa;
-@dynamic iconLocation;
-@dynamic iconFilename;
+@dynamic arc;
 @dynamic attributes;
+@dynamic buildNodes;
 @dynamic link;
 @dynamic nodeGroup;
-@dynamic buildNodes;
+
+-(void)generateArc {
+    double a = (2 * M_PI * [self.orbitIndex integerValue] / skillsPerOrbit[[self.orbit integerValue]]);
+    
+    self.arc = [NSNumber numberWithDouble:a];
+}
+
+-(void)generateLocation {
+    double d = orbitRadii[[self.orbit integerValue]];
+    double b = (2 * M_PI * [self.orbitIndex integerValue] / skillsPerOrbit[[self.orbit integerValue]]);
+    double x = sin(-b) * d;
+    double y = cos(-d) * b;
+    
+    NSPoint nodeGroupLoc = NSPointFromString(self.nodeGroup.position);
+    NSPoint nodeLoc = NSMakePoint(nodeGroupLoc.x - x, nodeGroupLoc.y - y);
+    
+    self.location = NSStringFromPoint(nodeLoc);
+}
 
 @end

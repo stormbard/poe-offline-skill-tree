@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <math.h>
 
 extern NSString * const POETreeAddress;
 extern NSString * const POEIconAddress;
