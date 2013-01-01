@@ -16,6 +16,7 @@
 @property (nonatomic, retain) NSNumber * isActive;
 @property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSString * fileName;
+@property (nonatomic, retain) NSString * nodeMap;
 @property (nonatomic, retain) SkillNode *active;
 @property (nonatomic, retain) SkillNode *inactive;
 

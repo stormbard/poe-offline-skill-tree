@@ -15,6 +15,7 @@
 @dynamic isActive;
 @dynamic location;
 @dynamic fileName;
+@dynamic nodeMap;
 @dynamic active;
 @dynamic inactive;
 

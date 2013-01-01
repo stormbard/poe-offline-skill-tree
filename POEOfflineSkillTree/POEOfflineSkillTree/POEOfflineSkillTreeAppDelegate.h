@@ -12,6 +12,7 @@
 #import "SkillNode.h"
 #import "Build.h"
 #import "Attribute.h"
+#import "SkillIcon.h"
 
 @interface POEOfflineSkillTreeAppDelegate : NSObject <NSApplicationDelegate>
 

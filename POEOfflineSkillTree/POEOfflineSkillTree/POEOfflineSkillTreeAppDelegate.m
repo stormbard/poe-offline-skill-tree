@@ -15,6 +15,8 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize tabView = _tabView;
 
+BOOL terminateWithoutSave = NO;
+
 #pragma mark Application Methods
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -25,18 +27,20 @@
     long int launchCount;
     
     launchCount = [defaults integerForKey:@"launchCount"] + 1;
-    [defaults setInteger:0 forKey:@"launchCount"];//change once this is tested
+    [defaults setInteger:launchCount forKey:@"launchCount"];//change once this is tested
     [defaults synchronize];
     
     if (launchCount <= 1) {
         POEOfflineSkillTreeImporter *skillTreeImporter = [POEOfflineSkillTreeImporter skillTreeImporter];
-        NSLog(@"Database not found, creating now..");
+        NSLog(@"Database not found, creating now...");
+        NSDictionary *spriteInfo = [skillTreeImporter getSkillSpriteInfo];
+        [self downloadAssets:spriteInfo[@"inactiveSkillSprites"]
+                activeSkills:spriteInfo[@"activeSkillSprites"]
+                 otherAssets:[skillTreeImporter getAssetInfo]];
         [self createNodeGroups:[skillTreeImporter getNodeGroupInfo]];
-//        [self createSkillNodes:[skillTreeImporter getSkillNodeInfo]];
-//        NSDictionary *spriteInfo = [skillTreeImporter getSkillSpriteInfo];
-//        [self downloadAssets:spriteInfo[@"inactiveSkillSprites"]
-//                     activeSkills:spriteInfo[@"activeSkillSprites"]
-//                        otherAssets:[skillTreeImporter getAssetInfo]];
+        [self createSkillIcons:spriteInfo[@"inactiveSkillSprites"]
+                  activeSkills:spriteInfo[@"activeSkillSprites"]];
+        [self createSkillNodes:[skillTreeImporter getSkillNodeInfo]];
         
     } else {
         NSLog(@"NO LONGER FIRST LAUNCH");
@@ -59,6 +63,11 @@
     // Save changes in the application's managed object context before the application terminates.
     NSLog(@"Exiting...");
     if (!_managedObjectContext) {
+        return NSTerminateNow;
+    }
+    
+    if (terminateWithoutSave) {
+        NSLog(@"Terminating without saving...");
         return NSTerminateNow;
     }
     
@@ -219,7 +228,7 @@
     NSFetchRequest *fetchRequest = nil;
     NSManagedObjectModel *mom = [self managedObjectModel];
     NSManagedObjectContext *moc = [self managedObjectContext];
-    
+    int count = 0;
     for (NSString *groupName in [groupInfo allKeys]) {
         NSDictionary * group = groupInfo[groupName];
         NSPoint loc = NSMakePoint([group[@"x"] floatValue], [group[@"y"] floatValue]);
@@ -235,12 +244,16 @@
         }
         
         for (NSNumber *nodeId  in group[@"n"]) {
+            count++;
             NSDictionary *subVars = [[NSDictionary alloc] initWithObjectsAndKeys:nodeId, @"gggNodeId", nil];
             fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
                                            substitutionVariables:subVars];
+//            NSLog(@"%@", fetchRequest);
             NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+//            NSLog(@"%@ %lu", result, [result count]);
             if (fetchError) {
                 [[NSApplication sharedApplication] presentError:fetchError];
+                terminateWithoutSave = YES;
                 [[NSApplication sharedApplication] terminate:self];
             }
             if ([result count] == 0) {
@@ -256,57 +269,135 @@
             }
         }
     }
-    NSLog(@"Node Groups Created");
+    NSLog(@"Node Groups Created %d", count);
 }
 
 - (void) createSkillNodes:(NSArray *)nodeInfo {
+    NSError *fetchError = nil;
     NSError *error = nil;
+    NSFetchRequest *fetchRequest = nil;
+    NSManagedObjectModel *mom = [self managedObjectModel];
+    NSManagedObjectContext *moc = [self managedObjectContext];
     //create data store
     NSLog(@"Creating skill nodes");
     for (NSDictionary *node in nodeInfo) {
-//        SkillNode *newNode = [NSEntityDescription insertNewObjectForEntityForName:@"SkillNode" inManagedObjectContext:[self managedObjectContext]];
-//        [newNode setValue:node[@"dn"] forKey:@"name"];
-//        [newNode setValue:node[@"id"] forKey:@"nodeId"];
-//        [newNode setValue:node[@"a"] forKey:@"a"];
-//        [newNode setValue:node[@"o"] forKey:@"orbit"];
-//        [newNode setValue:node[@"oidx"] forKey:@"orbitIndex"];
-//        [newNode setValue:node[@"icon"] forKey:@"icon"];
-//        
-////        newNode.linkIds = [[NSArray alloc] initWithArray:node[@"out"]];
-//        
-//        [newNode setValue:node[@"g"] forKey:@"g"];
-//        [newNode setValue:node[@"da"] forKey:@"da"];
-//        [newNode setValue:node[@"ia"] forKey:@"ia"];
-//        [newNode setValue:node[@"ks"] forKey:@"ks"];
-//        [newNode setValue:node[@"not"] forKey:@"notVar"];
-//        [newNode setValue:node[@"sa"] forKey:@"sa"];
-//        [newNode setValue:node[@"m"] forKey:@"isMastery"];
-        
-        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-        for (NSString *attribute in node[@"sd"]) {NSLog(@"%@",attribute);
-//            NSRegularExpression *regex = [[NSRegularExpression alloc]
-//                                          initWithPattern:@"[0-9]*\\.?[0-9]+"
-//                                          options:0 error:&error];
-//            NSArray *matches = [regex matchesInString:attribute options:0 range:NSMakeRange(0, [attribute length])];
-//            NSString *attributeName = nil;
-//            NSInteger attributeValue;
-//            NSMutableArray *values = [[NSMutableArray alloc] init];
-//            
-//            for (NSTextCheckingResult *match in matches) {
-//                attributeName = [attribute stringByReplacingCharactersInRange:[match range] withString:@"#"];
-//                attributeValue = [[attribute substringWithRange:[match range]] integerValue];
-//                [values addObject:[NSNumber numberWithLong:attributeValue]];
-//            }
-//            if (attributeName) {
-//                [dict setValue:values forKey:attributeName];
-//            }
+        NSNumber *nodeId = node[@"id"];
+        NSDictionary *subVars = [NSDictionary dictionaryWithObject:nodeId forKey: @"gggNodeId"];
+        fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
+                                       substitutionVariables:subVars];
+//        NSLog(@"%@", fetchRequest);
+        NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+//        NSLog(@"%@", result);
+        if (fetchError) {
+            [[NSApplication sharedApplication] presentError:fetchError];
+            terminateWithoutSave = YES;
+            [[NSApplication sharedApplication] terminate:self];
         }
-//        [newNode setValue:dict forKey:@"attributes"];
-    
+        SkillNode * skillNode = result[0];
+        skillNode.name = node[@"dn"];
+        skillNode.a = node[@"a"];
+        skillNode.orbit = node[@"o"];
+        skillNode.orbitIndex = node[@"oidx"];
+        skillNode.icon = node[@"icon"];
+        skillNode.g = node[@"g"];
+        skillNode.da = node[@"da"];
+        skillNode.ia = node[@"ia"];
+        skillNode.notVar = node[@"not"];
+        skillNode.sa = node[@"sa"];
+        skillNode.isMastery = node[@"m"];
+        
+        /* Initialize attributes */
+        NSLog(@"Initializing attributes for node: %@", skillNode.nodeId);
+        for (NSString *attribute in node[@"sd"]) {
+            NSRegularExpression *regex = [[NSRegularExpression alloc]
+                                          initWithPattern:@"[0-9]*\\.?[0-9]+"
+                                          options:0 error:&error];
+            NSArray *matches = [regex matchesInString:attribute options:0 range:NSMakeRange(0, [attribute length])];
+            NSString *attributeName = nil;
+            NSInteger attributeValue;
+            NSMutableArray *values = [[NSMutableArray alloc] init];
+            
+            for (NSTextCheckingResult *match in matches) {
+                attributeName = [attribute stringByReplacingCharactersInRange:[match range] withString:@"#"];
+                attributeValue = [[attribute substringWithRange:[match range]] integerValue];
+                [values addObject:[NSNumber numberWithLong:attributeValue]];
+            }
+            if (attributeName) {
+                Attribute *newAttribute = [NSEntityDescription insertNewObjectForEntityForName:@"Attribute"
+                                                                        inManagedObjectContext:moc];
+                [newAttribute addSkillNodeObject:skillNode];
+                newAttribute.values = values;
+                newAttribute.name = attributeName;
+                newAttribute.numValues = [NSNumber numberWithInteger:[values count]];
+                [skillNode addAttributesObject:newAttribute];
+            }
+        }
+        
+        /* Initialize links */
+        NSLog(@"Initializing links for node: %@", skillNode.nodeId);
+        if ([node[@"out"] count] > 0) {
+        for (NSNumber *linkId in node[@"out"]) {
+            NSDictionary *subVars = [[NSDictionary alloc] initWithObjectsAndKeys:node[@"id"], @"gggNodeId", nil];
+            fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
+                                           substitutionVariables:subVars];
+            NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+            if (fetchError) {
+                [[NSApplication sharedApplication] presentError:fetchError];
+                terminateWithoutSave = YES;
+                [[NSApplication sharedApplication] terminate:self];
+            }
+            if ([result count] > 0) {
+                SkillNode * linkSkillNode = result[0];
+                [skillNode addLinkObject:linkSkillNode];
+            }
+        }
+        }
+        
+        /* Link Skill Icons */
+        NSLog(@"Linking Skill Icons for node: %@", skillNode.nodeId);
+        subVars = [NSDictionary  dictionaryWithObject:skillNode.icon forKey:@"NODEMAP"];
+//        NSLog(@"%@", subVars);
+        fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchSkillIconFromNodeMap"
+                                       substitutionVariables:subVars];
+//        NSLog(@"%@", fetchRequest);
+        result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+//        NSLog(@"%@", result);
+        if (fetchError) {
+            [[NSApplication sharedApplication] presentError:fetchError];
+            terminateWithoutSave = YES;
+            [[NSApplication sharedApplication] terminate:self];
+        }
+        if ([result count] > 0) {
+        for (SkillIcon *skillIcon in result) {
+            if (skillIcon.isActive) {
+                skillNode.activeIcon = skillIcon;
+            } else {
+                skillNode.inactiveIcon = skillIcon;
+            }
+        }
+        }
     }
-    
-    //initialize links once all nodes are created
-    NSLog(@"Creating links/relationships");
+}
+
+-(void) createSkillIcons:(NSArray *)inactiveSkills
+            activeSkills:(NSArray *)activeSkills {
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    for (NSArray *skillIcon in inactiveSkills) {
+        SkillIcon *newSkillIcon = [NSEntityDescription insertNewObjectForEntityForName:@"SkillIcon"
+                                                                inManagedObjectContext:moc];
+        newSkillIcon.isActive = NO;
+        newSkillIcon.fileName = skillIcon[0];
+        newSkillIcon.nodeMap =  skillIcon[1];
+        newSkillIcon.location = skillIcon[2];
+    }
+    for (NSArray *skillIcon in activeSkills) {
+        SkillIcon *newSkillIcon = [NSEntityDescription insertNewObjectForEntityForName:@"SkillIcon"
+                                                                inManagedObjectContext:moc];
+        newSkillIcon.isActive = [NSNumber numberWithBool:YES];
+        newSkillIcon.fileName = skillIcon[0];
+        newSkillIcon.nodeMap =  skillIcon[1];
+        newSkillIcon.location = skillIcon[2];
+    }
 }
 
 - (void) downloadAssets:(NSArray *)inactiveSkills

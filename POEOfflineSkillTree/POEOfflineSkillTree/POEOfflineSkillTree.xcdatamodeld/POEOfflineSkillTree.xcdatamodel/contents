@@ -8,7 +8,7 @@
     </entity>
     <entity name="Build" representedClassName="Build" syncable="YES">
         <attribute name="buildUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Default Build Name" syncable="YES"/>
         <relationship name="activeNodes" optional="YES" toMany="YES" minCount="1" maxCount="111" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="buildNodes" inverseEntity="SkillNode" syncable="YES"/>
     </entity>
@@ -22,6 +22,7 @@
         <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nodeMap" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="active" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="activeIcon" inverseEntity="SkillNode" syncable="YES"/>
         <relationship name="inactive" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="inactiveIcon" inverseEntity="SkillNode" syncable="YES"/>
     </entity>
@@ -39,7 +40,7 @@
         <attribute name="ks" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" valueTransformerName="NSPoint" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="nodeId" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="nodeId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="notVar" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="orbit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="orbitIndex" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -53,11 +54,12 @@
     </entity>
     <fetchRequest name="fetchAttributeWithNameAndValue" entity="Attribute" predicateString="name == $NAME AND value == $VALUE"/>
     <fetchRequest name="fetchNodeWithGGGNodeId" entity="SkillNode" predicateString="nodeId == $gggNodeId"/>
+    <fetchRequest name="fetchSkillIconFromNodeMap" entity="SkillIcon" predicateString="nodeMap MATCHES $NODEMAP"/>
     <elements>
         <element name="Attribute" positionX="322" positionY="-252" width="128" height="105"/>
         <element name="Build" positionX="99" positionY="-72" width="128" height="105"/>
         <element name="NodeGroup" positionX="205" positionY="72" width="128" height="103"/>
         <element name="SkillNode" positionX="565" positionY="-261" width="128" height="405"/>
-        <element name="SkillIcon" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="SkillIcon" positionX="160" positionY="192" width="128" height="135"/>
     </elements>
 </model>
