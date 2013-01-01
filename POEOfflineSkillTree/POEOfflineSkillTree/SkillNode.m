@@ -10,6 +10,7 @@
 #import "Attribute.h"
 #import "Build.h"
 #import "NodeGroup.h"
+#import "SkillIcon.h"
 #import "SkillNode.h"
 
 
@@ -22,8 +23,6 @@
 @dynamic hitBox;
 @dynamic ia;
 @dynamic icon;
-@dynamic iconFilename;
-@dynamic iconLocation;
 @dynamic isActivated;
 @dynamic isMastery;
 @dynamic ks;
@@ -39,6 +38,8 @@
 @dynamic buildNodes;
 @dynamic link;
 @dynamic nodeGroup;
+@dynamic activeIcon;
+@dynamic inactiveIcon;
 
 -(void)generateArc {
     double a = (2 * M_PI * [self.orbitIndex integerValue] / skillsPerOrbit[[self.orbit integerValue]]);

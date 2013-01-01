@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "Constants.h"
 
-@class Attribute, Build, NodeGroup, SkillNode;
+@class Attribute, Build, NodeGroup, SkillIcon, SkillNode;
 
 @interface SkillNode : NSManagedObject
 
@@ -21,8 +21,6 @@
 @property (nonatomic, retain) NSString * hitBox;
 @property (nonatomic, retain) NSNumber * ia;
 @property (nonatomic, retain) NSString * icon;
-@property (nonatomic, retain) NSString * iconFilename;
-@property (nonatomic, retain) NSString * iconLocation;
 @property (nonatomic, retain) NSNumber * isActivated;
 @property (nonatomic, retain) NSNumber * isMastery;
 @property (nonatomic, retain) NSNumber * ks;
@@ -38,10 +36,11 @@
 @property (nonatomic, retain) NSSet *buildNodes;
 @property (nonatomic, retain) NSSet *link;
 @property (nonatomic, retain) NodeGroup *nodeGroup;
+@property (nonatomic, retain) SkillIcon *activeIcon;
+@property (nonatomic, retain) SkillIcon *inactiveIcon;
 
--(void)generateLocation;
 -(void)generateArc;
-
+-(void)generateLocation;
 @end
 
 @interface SkillNode (CoreDataGeneratedAccessors)

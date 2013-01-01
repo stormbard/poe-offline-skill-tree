@@ -34,8 +34,6 @@
         <attribute name="hitBox" optional="YES" attributeType="String" valueTransformerName="NSRect" syncable="YES"/>
         <attribute name="ia" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="iconFilename" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="iconLocation" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isActivated" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="isMastery" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="ks" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -59,7 +57,7 @@
         <element name="Attribute" positionX="322" positionY="-252" width="128" height="105"/>
         <element name="Build" positionX="99" positionY="-72" width="128" height="105"/>
         <element name="NodeGroup" positionX="205" positionY="72" width="128" height="103"/>
-        <element name="SkillNode" positionX="565" positionY="-261" width="128" height="435"/>
+        <element name="SkillNode" positionX="565" positionY="-261" width="128" height="405"/>
         <element name="SkillIcon" positionX="160" positionY="192" width="128" height="120"/>
     </elements>
 </model>
