@@ -14,10 +14,13 @@
 #import "Attribute.h"
 #import "SkillIcon.h"
 
-@interface POEOfflineSkillTreeAppDelegate : NSObject <NSApplicationDelegate>
+@interface POEOfflineSkillTreeAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSTabView * tabView;
+@property (assign) IBOutlet NSWindow *buildSheetNew;
+@property (assign) IBOutlet NSTabView *tabView;
+@property (assign) IBOutlet NSTextField *buildUrlField;
+@property (assign) IBOutlet NSTextField *buildNameField;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
@@ -28,5 +31,9 @@
 - (IBAction)selectStatsTab:(id)sender;
 - (IBAction)selectTreeTab:(id)sender;
 - (IBAction)selectItemsTab:(id)sender;
+
+- (IBAction)showNewBuildSheet:(id)sender;
+- (IBAction)endNewBuildSheet:(id)sender;
+- (IBAction)endNewBuildSheetCanceled:(id)sender;
 
 @end

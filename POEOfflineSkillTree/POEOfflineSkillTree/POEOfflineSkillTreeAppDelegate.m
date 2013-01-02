@@ -14,6 +14,8 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize tabView = _tabView;
+@synthesize buildNameField = _buildNameField;
+@synthesize buildUrlField = _buildUrlField;
 
 BOOL terminateWithoutSave = NO;
 
@@ -127,7 +129,7 @@ BOOL terminateWithoutSave = NO;
 // Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-//    NSLog(@"PersistentStoreCoordinator");
+    //    NSLog(@"PersistentStoreCoordinator");
     if (_persistentStoreCoordinator) {
         return _persistentStoreCoordinator;
     }
@@ -248,9 +250,9 @@ BOOL terminateWithoutSave = NO;
             NSDictionary *subVars = [[NSDictionary alloc] initWithObjectsAndKeys:nodeId, @"gggNodeId", nil];
             fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
                                            substitutionVariables:subVars];
-//            NSLog(@"%@", fetchRequest);
+            //            NSLog(@"%@", fetchRequest);
             NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
-//            NSLog(@"%@ %lu", result, [result count]);
+            //            NSLog(@"%@ %lu", result, [result count]);
             if (fetchError) {
                 [[NSApplication sharedApplication] presentError:fetchError];
                 terminateWithoutSave = YES;
@@ -285,9 +287,9 @@ BOOL terminateWithoutSave = NO;
         NSDictionary *subVars = [NSDictionary dictionaryWithObject:nodeId forKey: @"gggNodeId"];
         fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
                                        substitutionVariables:subVars];
-//        NSLog(@"%@", fetchRequest);
+        //        NSLog(@"%@", fetchRequest);
         NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
-//        NSLog(@"%@", result);
+        //        NSLog(@"%@", result);
         if (fetchError) {
             [[NSApplication sharedApplication] presentError:fetchError];
             terminateWithoutSave = YES;
@@ -305,6 +307,8 @@ BOOL terminateWithoutSave = NO;
         skillNode.notVar = node[@"not"];
         skillNode.sa = node[@"sa"];
         skillNode.isMastery = node[@"m"];
+        [skillNode generateArc];
+        [skillNode generateLocation];
         
         /* Initialize attributes */
         NSLog(@"Initializing attributes for node: %@", skillNode.nodeId);
@@ -336,45 +340,45 @@ BOOL terminateWithoutSave = NO;
         /* Initialize links */
         NSLog(@"Initializing links for node: %@", skillNode.nodeId);
         if ([node[@"out"] count] > 0) {
-        for (NSNumber *linkId in node[@"out"]) {
-            NSDictionary *subVars = [[NSDictionary alloc] initWithObjectsAndKeys:node[@"id"], @"gggNodeId", nil];
-            fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
-                                           substitutionVariables:subVars];
-            NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
-            if (fetchError) {
-                [[NSApplication sharedApplication] presentError:fetchError];
-                terminateWithoutSave = YES;
-                [[NSApplication sharedApplication] terminate:self];
+            for (NSNumber *linkId in node[@"out"]) {
+                NSDictionary *subVars = [[NSDictionary alloc] initWithObjectsAndKeys:node[@"id"], @"gggNodeId", nil];
+                fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
+                                               substitutionVariables:subVars];
+                NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+                if (fetchError) {
+                    [[NSApplication sharedApplication] presentError:fetchError];
+                    terminateWithoutSave = YES;
+                    [[NSApplication sharedApplication] terminate:self];
+                }
+                if ([result count] > 0) {
+                    SkillNode * linkSkillNode = result[0];
+                    [skillNode addLinkObject:linkSkillNode];
+                }
             }
-            if ([result count] > 0) {
-                SkillNode * linkSkillNode = result[0];
-                [skillNode addLinkObject:linkSkillNode];
-            }
-        }
         }
         
         /* Link Skill Icons */
         NSLog(@"Linking Skill Icons for node: %@", skillNode.nodeId);
         subVars = [NSDictionary  dictionaryWithObject:skillNode.icon forKey:@"NODEMAP"];
-//        NSLog(@"%@", subVars);
+        //        NSLog(@"%@", subVars);
         fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchSkillIconFromNodeMap"
                                        substitutionVariables:subVars];
-//        NSLog(@"%@", fetchRequest);
+        //        NSLog(@"%@", fetchRequest);
         result = [moc executeFetchRequest:fetchRequest error:&fetchError];
-//        NSLog(@"%@", result);
+        //        NSLog(@"%@", result);
         if (fetchError) {
             [[NSApplication sharedApplication] presentError:fetchError];
             terminateWithoutSave = YES;
             [[NSApplication sharedApplication] terminate:self];
         }
         if ([result count] > 0) {
-        for (SkillIcon *skillIcon in result) {
-            if (skillIcon.isActive) {
-                skillNode.activeIcon = skillIcon;
-            } else {
-                skillNode.inactiveIcon = skillIcon;
+            for (SkillIcon *skillIcon in result) {
+                if (skillIcon.isActive) {
+                    skillNode.activeIcon = skillIcon;
+                } else {
+                    skillNode.inactiveIcon = skillIcon;
+                }
             }
-        }
         }
     }
 }
@@ -486,6 +490,90 @@ BOOL terminateWithoutSave = NO;
         }
     }
     NSLog(@"Assets downloaded.");
+}
+
+#pragma mark New Build Window
+
+- (IBAction)showNewBuildSheet:(id)sender {
+    [NSApp beginSheet:_buildSheetNew modalForWindow:_window modalDelegate:nil
+       didEndSelector:NULL contextInfo:NULL];
+}
+
+- (IBAction)endNewBuildSheet:(id)sender {
+    NSError *fetchError = nil;
+    NSFetchRequest *fetchRequest = nil;
+    NSManagedObjectModel *mom = [self managedObjectModel];
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    
+    [NSApp endSheet:_buildSheetNew];
+    [_buildSheetNew orderOut:sender];
+    
+    NSString *buildName = [_buildNameField stringValue];
+    NSString *buildUrl  = [_buildUrlField stringValue];
+    NSDictionary *subVars = [NSDictionary dictionaryWithObjectsAndKeys:buildName,
+                             @"BUILD_NAME", buildUrl, @"BUILD_URL", nil];
+    NSLog(@"%@", subVars);
+    NSLog(@"Searching for build Name: %@ URL: %@", buildName, buildUrl);
+    
+    fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchBuildWithURLAndName"
+                                   substitutionVariables:subVars];
+    NSArray *result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+    if (fetchError) {
+        [NSApp presentError:fetchError];
+    }
+    if ([result count] > 0) {
+        NSLog(@"Build Already found");
+        [moc deleteObject:result[0]];
+    } else {
+        Build *newBuild = [NSEntityDescription insertNewObjectForEntityForName:@"Build"
+                                                        inManagedObjectContext:moc];
+        newBuild.name = buildName;
+        newBuild.buildUrl = buildUrl;
+        NSArray *skilledNodes = [newBuild decodeURL];
+        for (NSObject *node in skilledNodes) {
+            if ([node isKindOfClass:[NSString class]]) {
+                subVars = [NSDictionary dictionaryWithObject:node forKey:@"nodeName"];
+                fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeByName"
+                                               substitutionVariables:subVars];
+                result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+                if (fetchError) {
+                    [NSApp presentError:fetchError];
+                }
+                if ([result count] > 0) {
+                    SkillNode *activateMe = result[0];
+                    [newBuild addActiveNodesObject:activateMe];
+                    activateMe.isActivated = [NSNumber numberWithBool:YES];
+                    NSSet *links = activateMe.link;
+                    for (SkillNode *link in links) {
+                        link.canBeActivated = [NSNumber numberWithBool:YES];
+                    }
+                }
+            } else {
+                subVars = [NSDictionary dictionaryWithObject:node forKey:@"gggNodeId"];
+                fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchNodeWithGGGNodeId"
+                                               substitutionVariables:subVars];
+                result = [moc executeFetchRequest:fetchRequest error:&fetchError];
+                if (fetchError) {
+                    [NSApp presentError:fetchError];
+                }
+                if ([result count] > 0) {
+                    SkillNode *activateMe = result[0];
+                    [newBuild addActiveNodesObject:activateMe];
+                    activateMe.isActivated = [NSNumber numberWithBool:YES];
+                    NSSet *links = activateMe.link;
+                    for (SkillNode *link in links) {
+                        link.canBeActivated = [NSNumber numberWithBool:YES];
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+- (IBAction)endNewBuildSheetCanceled:(id)sender {
+    [NSApp endSheet:_buildSheetNew];
+    [_buildSheetNew orderOut:sender];
 }
 
 

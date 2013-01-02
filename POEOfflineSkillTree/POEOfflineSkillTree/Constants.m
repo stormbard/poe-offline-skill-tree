@@ -21,6 +21,7 @@ float const DexPerAccuracy = 0.5f;
 NSInteger const DexPerEvas = 5;
 int const skillsPerOrbit[] = {1, 6, 12, 12, 12};
 float const orbitRadii[] = {0, 81.5f, 163, 362, 489};
+char const classType[] = {'M', 'R', 'W', 'D', 'T', 'S'};
 
 
 

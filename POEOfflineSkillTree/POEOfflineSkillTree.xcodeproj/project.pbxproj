@@ -172,6 +172,13 @@
 			name = ManagedObjects;
 			sourceTree = "<group>";
 		};
+		C5ED30421693494F0083204E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		C5FAE598168555CD00295024 = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +221,7 @@
 		C5FAE5AD168555CD00295024 /* POEOfflineSkillTree */ = {
 			isa = PBXGroup;
 			children = (
+				C5ED30421693494F0083204E /* Controllers */,
 				C58A1F121690EB9C0047FD37 /* ManagedObjects */,
 				C5FAE5E516855EFA00295024 /* Helpers */,
 				C5FAE5B9168555CD00295024 /* POEOfflineSkillTreeAppDelegate.h */,

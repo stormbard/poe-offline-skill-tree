@@ -53,6 +53,8 @@
         <relationship name="nodeGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="NodeGroup" inverseName="nodesInGroup" inverseEntity="NodeGroup" syncable="YES"/>
     </entity>
     <fetchRequest name="fetchAttributeWithNameAndValue" entity="Attribute" predicateString="name == $NAME AND value == $VALUE"/>
+    <fetchRequest name="fetchBuildWithURLAndName" entity="Build" predicateString="buildUrl MATCHES $BUILD_URL AND name MATCHES $BUILD_NAME"/>
+    <fetchRequest name="fetchNodeByName" entity="SkillNode" predicateString="name MATCHES $nodeName"/>
     <fetchRequest name="fetchNodeWithGGGNodeId" entity="SkillNode" predicateString="nodeId == $gggNodeId"/>
     <fetchRequest name="fetchSkillIconFromNodeMap" entity="SkillIcon" predicateString="nodeMap MATCHES $NODEMAP"/>
     <elements>

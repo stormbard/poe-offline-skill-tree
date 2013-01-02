@@ -41,6 +41,11 @@
 @dynamic activeIcon;
 @dynamic inactiveIcon;
 
+- (void)awakeFromInsert {
+    self.canBeActivated = NO;
+    self.isActivated = NO;
+}
+
 -(void)generateArc {
     double a = (2 * M_PI * [self.orbitIndex integerValue] / skillsPerOrbit[[self.orbit integerValue]]);
     

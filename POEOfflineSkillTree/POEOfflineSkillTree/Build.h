@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "NSString+Base64.h"
+#import "NSData+Base64.h"
+#import "Constants.h"
 
 @class SkillNode;
 
@@ -17,6 +20,9 @@
 @property (nonatomic, retain) NSNumber * level;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSSet *activeNodes;
+
+-(NSArray *)decodeURL;
+-(void)encodeURL;
 @end
 
 @interface Build (CoreDataGeneratedAccessors)

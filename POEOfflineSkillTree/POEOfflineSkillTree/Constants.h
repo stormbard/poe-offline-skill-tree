@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <math.h>
+#import <string.h>
 
 extern NSString * const POETreeAddress;
 extern NSString * const POEIconAddress;
@@ -22,4 +23,5 @@ extern float  const DexPerAccuracy;
 extern NSInteger  const DexPerEvas;
 extern int const skillsPerOrbit[5];
 extern float const orbitRadii[5];
+extern char const classType[6];
 
