@@ -14,17 +14,25 @@
 #import "Attribute.h"
 #import "SkillIcon.h"
 
-@interface POEOfflineSkillTreeAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate>
+@interface POEOfflineSkillTreeAppDelegate : NSObject <NSApplicationDelegate, NSTableViewDelegate> {
+    IBOutlet NSArrayController *buildListController;
+    IBOutlet NSArrayController *buildDisplayController;
+
+}
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSWindow *buildSheetNew;
 @property (assign) IBOutlet NSTabView *tabView;
 @property (assign) IBOutlet NSTextField *buildUrlField;
 @property (assign) IBOutlet NSTextField *buildNameField;
+@property (assign) IBOutlet NSTableView *buildListTableView;
+@property (assign) IBOutlet NSTableView *buildDisplayTableView;
+@property (readwrite) NSMutableArray *buildDisplayData;
 
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 
 - (IBAction)saveAction:(id)sender;
 

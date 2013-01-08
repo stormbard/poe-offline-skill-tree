@@ -18,4 +18,13 @@
     return [self rangeOfString:str options:options].location != NSNotFound;
 }
 
+-(NSString *)replaceFirstOccurance:(NSString *)str
+                       replaceWith:(NSString *)replace {
+    NSRange replaceRange = [self rangeOfString:str];
+    if (replaceRange.location != NSNotFound) {
+        return [self stringByReplacingCharactersInRange:replaceRange withString:replace];
+    }
+    return nil;
+}
+
 @end

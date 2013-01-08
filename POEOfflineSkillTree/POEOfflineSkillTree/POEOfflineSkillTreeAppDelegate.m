@@ -16,6 +16,9 @@
 @synthesize tabView = _tabView;
 @synthesize buildNameField = _buildNameField;
 @synthesize buildUrlField = _buildUrlField;
+@synthesize buildListTableView = _buildListTableView;
+@synthesize buildDisplayTableView = _buildDisplayTableView;
+@synthesize buildDisplayData = _buildDisplayData;
 
 BOOL terminateWithoutSave = NO;
 
@@ -31,6 +34,14 @@ BOOL terminateWithoutSave = NO;
     launchCount = [defaults integerForKey:@"launchCount"] + 1;
     [defaults setInteger:launchCount forKey:@"launchCount"];//change once this is tested
     [defaults synchronize];
+    
+    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+    if ([arguments count] > 3) {
+        launchCount = [arguments[4] integerValue];
+    }
+    
+    _buildDisplayData = [NSMutableDictionary dictionary];
+    [_buildListTableView setDoubleAction:@selector(buildViewDouble:)];
     
     if (launchCount <= 1) {
         POEOfflineSkillTreeImporter *skillTreeImporter = [POEOfflineSkillTreeImporter skillTreeImporter];
@@ -107,6 +118,8 @@ BOOL terminateWithoutSave = NO;
         if (answer == NSAlertAlternateReturn) {
             return NSTerminateCancel;
         }
+    } else {
+        NSLog(@"Data Saved");
     }
     
     return NSTerminateNow;
@@ -318,14 +331,16 @@ BOOL terminateWithoutSave = NO;
                                           options:0 error:&error];
             NSArray *matches = [regex matchesInString:attribute options:0 range:NSMakeRange(0, [attribute length])];
             NSString *attributeName = nil;
-            NSInteger attributeValue;
+            float attributeValue;
             NSMutableArray *values = [[NSMutableArray alloc] init];
             
             for (NSTextCheckingResult *match in matches) {
-                attributeName = [attribute stringByReplacingCharactersInRange:[match range] withString:@"#"];
-                attributeValue = [[attribute substringWithRange:[match range]] integerValue];
-                [values addObject:[NSNumber numberWithLong:attributeValue]];
+                attributeValue = [[attribute substringWithRange:[match range]] floatValue];
+                [values addObject:[NSNumber numberWithFloat:attributeValue]];
             }
+            attributeName = [regex stringByReplacingMatchesInString:attribute
+                            options:0 range:NSMakeRange(0, [attribute length])
+                                                       withTemplate:@"#"];
             if (attributeName) {
                 Attribute *newAttribute = [NSEntityDescription insertNewObjectForEntityForName:@"Attribute"
                                                                         inManagedObjectContext:moc];
@@ -593,5 +608,110 @@ BOOL terminateWithoutSave = NO;
     NSTabViewItem *itemsTab = [_tabView tabViewItemAtIndex:2];
     [_tabView selectTabViewItem:itemsTab];
 }
+
+#pragma mark Build List Methods
+
+-(void)tableViewSelectionIsChanging:(NSNotification *) notification {
+//    NSTableView *temp = [notification object];
+//    if (temp == _buildListTableView) {
+//        Build *selectedBuild = [buildListController selectedObjects][0];
+//        NSLog(@"Is changing: %@", selectedBuild);
+//    } else if (temp == _buildDisplayTableView) {
+//        NSLog(@"DISPLAY");
+//    }
+}
+
+-(void)tableViewSelectionDidChange:(NSNotification *)notification {
+    NSManagedObjectContext * moc = [self managedObjectContext];
+    NSManagedObjectModel * mom = [self managedObjectModel];
+    NSFetchRequest *fetchRequest = nil;
+    NSError *fetchError = nil;
+    
+    NSTableView *temp = [notification object];
+    if (temp == _buildListTableView) {
+        Build *selectedBuild = [buildListController selectedObjects][0];
+        NSMutableDictionary *attributeAggregator = nil;
+        attributeAggregator = [NSMutableDictionary dictionary];
+        NSMutableDictionary *numValues = [NSMutableDictionary dictionary];
+        NSArray *valueArray;
+        
+        for (SkillNode *active in selectedBuild.activeNodes) {
+            for (Attribute *attribute in active.attributes) {
+                NSString *attrName = attribute.name;
+                valueArray = [attribute.values mutableCopy];
+                NSMutableArray *obj = [attributeAggregator objectForKey:attribute.name];
+                if (obj) {
+                    for (int ndx = 0; ndx < [obj count]; ndx++) {
+                        obj[ndx] = [NSNumber numberWithFloat:([obj[ndx] floatValue] + [valueArray[ndx] floatValue])];
+                    }
+                    [attributeAggregator setValue:obj forKey:attrName];
+                } else {
+                    [attributeAggregator setValue:valueArray forKey:attrName];
+                    [numValues setValue:attribute.numValues forKey:attrName];
+                }
+            }
+        }
+        
+        NSMutableArray *finalAttributeList = nil;
+        finalAttributeList = [NSMutableArray array];
+        for (NSString *key in [attributeAggregator allKeys]) {
+//            NSLog(@"%@", key);
+            NSString *name = [key stringByReplacingOccurrencesOfString:@"+" withString:@"\\+"];
+//            NSLog(@"%@", name);
+            NSDictionary *subVars = [NSDictionary dictionaryWithObject:name forKey:@"NAME"];
+            fetchRequest = [mom fetchRequestFromTemplateWithName:@"fetchAttributeWithName"
+                                           substitutionVariables:subVars];
+            NSArray *results = [moc executeFetchRequest:fetchRequest error:&fetchError];
+            
+            NSString *finalAttribute = key;
+            NSArray *values = attributeAggregator[key];
+            Attribute *addAttribute = nil;
+            
+            BOOL found = NO;
+            for (int ndx = 0; ndx < [results count] && !found; ndx++) {
+                Attribute *attr = results[ndx];
+                if ([attr.values isEqualToArray:values]) {
+                    addAttribute = attr;
+                    found = YES;
+                }
+            }
+            if (addAttribute == nil) {
+                addAttribute = [NSEntityDescription insertNewObjectForEntityForName:@"Attribute" inManagedObjectContext:moc];
+                addAttribute.values = values;
+                addAttribute.name = finalAttribute;
+                addAttribute.numValues = [NSNumber numberWithInteger:[values count]];
+            }
+            
+            for (int ndx = 0; ndx < [numValues[key] intValue]; ndx++) {
+                finalAttribute = [finalAttribute replaceFirstOccurance:@"#"
+                                                           replaceWith:[[values objectAtIndex:ndx] stringValue]];
+                if (finalAttribute == nil) {
+                    finalAttribute = key;
+                }
+            }
+            //        NSLog(@"%@ %@", finalAttribute, numValues[key]);
+            NSSet *buildAttrSet = selectedBuild.attributes;
+            NSPredicate *setPredicate = [NSPredicate predicateWithFormat:@"name MATCHES %@", name];
+            NSSet *filteredSet = [buildAttrSet filteredSetUsingPredicate:setPredicate];
+
+            addAttribute.displayName = finalAttribute;
+            
+            [selectedBuild removeAttributes:filteredSet];
+            [selectedBuild addAttributesObject:addAttribute];
+            
+            [finalAttributeList addObject:finalAttribute];
+        }
+    } else if (temp == _buildDisplayTableView) {
+        NSLog(@"DISPLAY");
+    }
+}
+
+-(IBAction)buildViewDouble:(id)sender {
+    NSInteger row = [_buildListTableView selectedRow];
+    if (row != -1) {
+        NSLog(@"Double: %@", [(Build *)([buildListController selectedObjects][0]) valueForKey:@"buildUrl"]);
+    }
+}
+
 
 @end

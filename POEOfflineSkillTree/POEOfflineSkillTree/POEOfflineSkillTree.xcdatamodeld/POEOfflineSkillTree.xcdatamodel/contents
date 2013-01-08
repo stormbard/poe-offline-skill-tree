@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C3012" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Attribute" representedClassName="Attribute" syncable="YES">
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="numValues" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="values" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="builds" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Build" inverseName="attributes" inverseEntity="Build" syncable="YES"/>
         <relationship name="skillNode" optional="YES" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="attributes" inverseEntity="SkillNode" syncable="YES"/>
     </entity>
     <entity name="Build" representedClassName="Build" syncable="YES">
@@ -11,6 +14,7 @@
         <attribute name="level" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString="Default Build Name" syncable="YES"/>
         <relationship name="activeNodes" optional="YES" toMany="YES" minCount="1" maxCount="111" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="buildNodes" inverseEntity="SkillNode" syncable="YES"/>
+        <relationship name="attributes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attribute" inverseName="builds" inverseEntity="Attribute" syncable="YES"/>
     </entity>
     <entity name="NodeGroup" representedClassName="NodeGroup" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,16 +56,16 @@
         <relationship name="link" optional="YES" toMany="YES" minCount="1" maxCount="12" deletionRule="Nullify" destinationEntity="SkillNode" inverseName="link" inverseEntity="SkillNode" syncable="YES"/>
         <relationship name="nodeGroup" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="NodeGroup" inverseName="nodesInGroup" inverseEntity="NodeGroup" syncable="YES"/>
     </entity>
-    <fetchRequest name="fetchAttributeWithNameAndValue" entity="Attribute" predicateString="name == $NAME AND value == $VALUE"/>
+    <fetchRequest name="fetchAttributeWithName" entity="Attribute" predicateString="name MATCHES $NAME"/>
     <fetchRequest name="fetchBuildWithURLAndName" entity="Build" predicateString="buildUrl MATCHES $BUILD_URL AND name MATCHES $BUILD_NAME"/>
     <fetchRequest name="fetchNodeByName" entity="SkillNode" predicateString="name MATCHES $nodeName"/>
     <fetchRequest name="fetchNodeWithGGGNodeId" entity="SkillNode" predicateString="nodeId == $gggNodeId"/>
     <fetchRequest name="fetchSkillIconFromNodeMap" entity="SkillIcon" predicateString="nodeMap MATCHES $NODEMAP"/>
     <elements>
-        <element name="Attribute" positionX="322" positionY="-252" width="128" height="105"/>
-        <element name="Build" positionX="99" positionY="-72" width="128" height="105"/>
-        <element name="NodeGroup" positionX="205" positionY="72" width="128" height="103"/>
-        <element name="SkillNode" positionX="565" positionY="-261" width="128" height="405"/>
-        <element name="SkillIcon" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Attribute" positionX="385" positionY="-252" width="128" height="148"/>
+        <element name="Build" positionX="196" positionY="-243" width="128" height="120"/>
+        <element name="NodeGroup" positionX="196" positionY="-90" width="128" height="103"/>
+        <element name="SkillIcon" positionX="198" positionY="36" width="128" height="135"/>
+        <element name="SkillNode" positionX="601" positionY="-261" width="128" height="405"/>
     </elements>
 </model>

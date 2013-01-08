@@ -12,5 +12,6 @@
 
 -(BOOL)containsString:(NSString *)str;
 -(BOOL)containsString:(NSString *)str options:(NSStringCompareOptions) options;
+-(NSString *)replaceFirstOccurance:(NSString *)str replaceWith:(NSString *)replace;
 
 @end

@@ -2,11 +2,12 @@
 //  Build.m
 //  POEOfflineSkillTree
 //
-//  Created by Eric Bunton on 12/31/12.
-//  Copyright (c) 2012 Eric Bunton. All rights reserved.
+//  Created by Eric Bunton on 1/5/13.
+//  Copyright (c) 2013 Eric Bunton. All rights reserved.
 //
 
 #import "Build.h"
+#import "Attribute.h"
 #import "SkillNode.h"
 
 
@@ -16,9 +17,22 @@
 @dynamic level;
 @dynamic name;
 @dynamic activeNodes;
+@dynamic attributes;
 
 -(void)awakeFromFetch {
-    //Calculate attributes
+    [super awakeFromFetch];
+}
+
+-(void)awakeFromInsert {
+    [super awakeFromInsert];
+}
+
+-(void)willTurnIntoFault {
+    [super willTurnIntoFault];
+}
+
+-(void)didTurnIntoFault {
+    [super didTurnIntoFault];
 }
 
 -(NSArray *)decodeURL {
@@ -89,14 +103,9 @@
     
 }
 
-/*
- Little Endian, most significant bit is the second
- */
+
 +(unsigned short)toInt16:(unsigned char[])bytes {
     return (unsigned short)(bytes[0] << 8 | bytes[1]);
 }
-
-
-
 
 @end

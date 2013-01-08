@@ -29,10 +29,6 @@
 //    STFail(@"Unit tests are not implemented yet in POEOfflineSkillTreeTests");
 //}
 
-- (void)testContainsCaseInsensitive {
-    if (![@"containsTest" containsString:@"test" options:NSCaseInsensitiveSearch]){
-        STFail(@"Failed test");
-    }
-}
+
 
 @end
